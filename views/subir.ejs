@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Archivos</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Subir un Archivo</h1>
+    <form action="/subir" method="POST" enctype="multipart/form-data">
+        <label for="archivo">Selecciona un archivo</label>
+        <input type="file" id="archivo" name="archivo" required><br>
+        
+        <button type="submit">Subir Archivo</button>
+    </form>
+</body>
+</html>

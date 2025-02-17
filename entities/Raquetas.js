@@ -82,7 +82,7 @@ class Raqueta {
             .catch(err => console.error('Error al obtener las raquetas', err));
     }
 
-    // Crear una nueva raqueta
+    // Crear una nueva raqueta en el modelo
     static crearRaqueta(marca, precio, modelo, peso, material) {
         const nuevaRaqueta = new RaquetaModel({
             marca: marca,
@@ -92,27 +92,47 @@ class Raqueta {
             material: material
         });
 
-        nuevaRaqueta.save()
-            .then(raqueta => console.log('Raqueta guardada:', raqueta))
-            .catch(err => console.error('Error al guardar la raqueta:', err));
+        // Devuelve la promesa de guardar la raqueta
+        return nuevaRaqueta.save()
+            .then(raquetaGuardada => {
+                console.log('Raqueta guardada:', raquetaGuardada);
+                return raquetaGuardada;  // Devuelve la raqueta guardada
+            })
+            .catch(err => {
+                console.error('Error al guardar la raqueta:', err);
+                throw err;  // Lanza el error para que pueda ser manejado por el controlador
+            });
     }
 
+
     // Actualizar una raqueta
-    static actualizarRaqueta(id, nuevoPrecio) {
-        RaquetaModel.findByIdAndUpdate(id, { precio: nuevoPrecio }, { new: true })
+    static actualizarRaqueta(id, marca, precio, modelo, peso, material) {
+        return RaquetaModel.findByIdAndUpdate(id,
+            {
+                marca: marca,
+                precio: precio,
+                modelo: modelo,
+                peso: peso,
+                material: material
+            },
+            { new: true }) // Devuelve el documento actualizado
             .then(raquetaActualizada => {
                 if (raquetaActualizada) {
                     console.log('Raqueta actualizada:', raquetaActualizada);
+                    return raquetaActualizada; // Puedes devolver la raqueta actualizada si lo deseas
                 } else {
-                    console.log('No se encontró ninguna raqueta con ese ID.');
+                    throw new Error('No se encontró ninguna raqueta con ese ID');
                 }
             })
-            .catch(err => console.error('Error al actualizar la raqueta:', err));
+            .catch(err => {
+                console.error('Error al actualizar la raqueta:', err);
+                throw err; // Lanza el error para que lo maneje el controlador
+            });
     }
 
-    // Eliminar una raqueta
+
     static eliminarRaqueta(id) {
-        RaquetaModel.findByIdAndDelete(id)
+        return RaquetaModel.findByIdAndDelete(id)  // Devolver la promesa
             .then(raquetaEliminada => {
                 if (raquetaEliminada) {
                     console.log('Raqueta eliminada:', raquetaEliminada);
@@ -121,7 +141,7 @@ class Raqueta {
                 }
             })
             .catch(err => console.error('Error al eliminar la raqueta:', err));
-    }
+    }    
 
     // Insertar varias raquetas
     static insertarVariasRaquetas() {

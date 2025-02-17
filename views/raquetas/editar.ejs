@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Raqueta</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Editar Raqueta</h1>
+    <form action="/raquetas/<%= raqueta._id %>?_method=PUT" method="POST">
+        <!-- El campo oculto para el método PUT -->
+        <input type="hidden" name="_method" value="PUT">
+
+        <label for="marca">Marca</label>
+        <input type="text" id="marca" name="marca" value="<%= raqueta.marca %>" required><br>
+
+        <label for="modelo">Modelo</label>
+        <input type="text" id="modelo" name="modelo" value="<%= raqueta.modelo %>" required><br>
+
+        <label for="precio">Precio</label>
+        <input type="number" id="precio" name="precio" value="<%= raqueta.precio %>" required><br>
+
+        <label for="peso">Peso</label>
+        <input type="number" id="peso" name="peso" value="<%= raqueta.peso %>" required><br>
+
+        <label for="material">Material</label>
+        <input type="text" id="material" name="material" value="<%= raqueta.material %>" required><br>
+
+        <button type="submit">Guardar Cambios</button>
+    </form>
+    <a href="/raquetas">Volver</a>
+
+    <script>
+        // Asegúrate de que el token esté presente y la cookie sea incluida automáticamente por el navegador
+        window.addEventListener('DOMContentLoaded', () => {
+            // Solicitar la creación de raqueta con la cookie (JWT) automáticamente enviada
+            fetch('/raquetas/nueva', {
+                method: 'GET',
+                credentials: 'include'  // Incluir las cookies en la solicitud
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Si todo va bien, se obtiene el acceso autorizado
+                console.log('Acceso autorizado');
+            })
+            .catch(error => {
+                // En caso de no estar autorizado (error 401), redirigir al login
+                console.error('No autorizado:', error);
+                //window.location.href = '/login'; // Redirigir a login si no se puede acceder
+            });
+        });
+    </script>
+</body>
+</html>
