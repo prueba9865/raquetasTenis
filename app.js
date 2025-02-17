@@ -22,15 +22,6 @@ app.use(session({
 // Habilitar cookie-parser
 app.use(cookieParser());
 
-// Middleware para habilitar CORS en el servidor (backend)
-const cors = require('cors');
-
-app.use(cors({
-  origin: 'http://localhost:3000',  // Frontend en localhost
-  credentials: true
-}));
-
-
 const uploadDirectory = path.join(__dirname, 'uploads');
 
 // Verificar si el directorio existe, y si no, crearlo
