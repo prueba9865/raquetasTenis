@@ -18,7 +18,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
         if (data.message === "Login exitoso") {
             // Si es exitoso, redirigir a la página de crear raqueta
             console.log('Login exitoso, token guardado en la cookie');
-            window.location.href = '/raquetas'; // Redirigir a la página de crear raqueta
+            window.location.href = '/raquetas'; // Redirigir al index
         } else {
             alert('Login fallido: ' + data.message);
         }
