@@ -20,3 +20,38 @@ a {
     margin-top: 20px;
     color: blue;
 }
+
+/* Estilo general para el botón de subir foto */
+.boton-subir-foto {
+    display: inline-flex;           /* Se asegura de que el contenido del botón se alinee bien */
+    justify-content: center;        /* Centra el icono dentro del botón */
+    align-items: center;            /* Alinea verticalmente el icono */
+    width: 60px;                    /* Tamaño adecuado para el botón */
+    height: 60px;                   /* Mismo tamaño que el ancho, para que sea un círculo */
+    background-color: #4CAF50;      /* Color de fondo atractivo (puedes cambiarlo a lo que prefieras) */
+    color: white;                   /* Color del icono (blanco) */
+    border-radius: 50%;             /* Hace que el botón sea redondo */
+    border: none;                   /* Quita los bordes predeterminados */
+    cursor: pointer;                /* Cambia el cursor para indicar que es clickeable */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Efecto suave al hacer hover */
+    font-size: 24px;                /* Tamaño del icono */
+}
+
+.boton-subir-foto:hover {
+    background-color: #45a049;      /* Cambio de color al pasar el ratón (más oscuro) */
+    transform: scale(1.1);           /* Efecto de aumento del tamaño */
+}
+
+.boton-subir-foto:active {
+    transform: scale(0.95);          /* Efecto de presión cuando se hace clic (se reduce un poco el tamaño) */
+}
+
+.boton-subir-foto i {
+    pointer-events: none;            /* Evita que el icono intercepte el clic y lo haga en el contenedor */
+}
+
+/* Estilos adicionales para una mayor accesibilidad */
+.boton-subir-foto:focus {
+    outline: none;                   /* Elimina el borde de enfoque predeterminado */
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);  /* Sombra de enfoque verde */
+}

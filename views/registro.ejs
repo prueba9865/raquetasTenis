@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
+
 <body>
     <h1>Registro de Usuario</h1>
     <form action="/registro" method="POST">
@@ -18,8 +20,55 @@
         <label for="contrasena">Contraseña</label>
         <input type="password" id="contrasena" name="contrasena" required><br>
 
+        <!-- Botón para subir foto (que dispara el input oculto) -->
+        <div class="boton-subir-foto" id="nuevaFoto">
+            <i class="fa-regular fa-image"></i> <!-- Icono de imagen -->
+        </div>
+
         <button type="submit">Registrarse</button>
     </form>
+
+    <!-- Formulario para agregar una nueva foto (input oculto) -->
+    <form method="POST" enctype="multipart/form-data" id="formulario-add-foto">
+        <input type="file" name="archivoFoto" style="display: none;" id="nuevoArchivo" accept="image/*">
+    </form>
+
+    <!-- Contenedor para la previsualización de la imagen -->
+    <div id="previsualizacion">
+        <h3>Previsualización de la Imagen:</h3>
+        <img id="imagenPrevia" src="" alt="Imagen seleccionada"
+            style="display: none; max-width: 100%; border: 1px solid #ddd;">
+    </div>
+
+    <script type="text/javascript">
+        // Activar el input de archivo cuando se haga clic en el área del botón
+        document.getElementById("nuevaFoto").addEventListener("click", function () {
+            document.getElementById("nuevoArchivo").click();
+        });
+
+        // Cuando el usuario seleccione un archivo
+        document.getElementById("nuevoArchivo").addEventListener("change", function () {
+            const archivo = this.files[0];
+
+            if (archivo) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    // Establecer la imagen seleccionada como fondo del div
+                    document.getElementById("nuevaFoto").style.backgroundImage = `url(${e.target.result})`;
+                    document.getElementById("nuevaFoto").style.backgroundSize = "cover";  // Asegura que la imagen cubra todo el div
+                    document.getElementById("nuevaFoto").style.backgroundPosition = "center";  // Centra la imagen
+                    document.getElementById("nuevaFoto").style.backgroundRepeat = "no-repeat";  // Evita que la imagen se repita
+                }
+
+                // Leer el archivo como una URL de imagen
+                reader.readAsDataURL(archivo);
+            }
+        });
+
+    </script>
+
     <a href="/login">¿Ya tienes cuenta? Inicia sesión</a>
 </body>
+
 </html>
